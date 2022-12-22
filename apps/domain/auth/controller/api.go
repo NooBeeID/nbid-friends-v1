@@ -78,3 +78,21 @@ func (c *ControllerAPI) Search(ctx *gin.Context) {
 	resp := response.GeneralSuccessCustomMessageAndPayload("SEARCH SUCCESS", result)
 	ctx.JSON(resp.StatusCode, resp)
 }
+
+func (c *ControllerAPI) Profile(ctx *gin.Context) {
+	authId := ctx.GetInt("authId")
+	if authId == 0 {
+		resp := response.GeneralErrorWithAdditionalInfo("auth id cannot be 0")
+		ctx.AbortWithStatusJSON(resp.StatusCode, resp)
+		return
+	}
+
+	profile, custErr := c.svc.Profile(ctx, authId)
+	if custErr != nil {
+		ctx.AbortWithStatusJSON(custErr.StatusCode, custErr)
+		return
+	}
+
+	resp := response.GeneralSuccessCustomMessageAndPayload("GET PROFILE SUCCESS", profile)
+	ctx.JSON(resp.StatusCode, resp)
+}

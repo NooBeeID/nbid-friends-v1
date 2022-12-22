@@ -60,3 +60,21 @@ func (a *authSvc) Search(ctx context.Context, email string) ([]*params.UserSearc
 
 	return authResp, nil
 }
+
+// Profile implements services.AuthSvc
+func (a *authSvc) Profile(ctx context.Context, authId int) (*params.UserProfileResponse, *response.CustomError) {
+	auth, err := a.repo.FindById(ctx, authId)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, response.NotFoundError()
+		}
+
+		return nil, response.RepositoryErrorWithAdditionalInfo(err.Error())
+	}
+
+	authResp := new(params.UserProfileResponse)
+
+	authResp.ParseModelToResponse(auth)
+
+	return authResp, nil
+}

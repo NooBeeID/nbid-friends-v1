@@ -33,7 +33,7 @@ func (r *Gin) BuildRoutes() {
 
 	v1 := r.router.Group("v1")
 
-	authRoute := auth.NewRouterAuth(v1, r.db)
+	authRoute := auth.NewRouterAuth(v1, r.db, r.middle)
 	authRoute.RegisterAuthRoutes()
 
 	// use middleware auth

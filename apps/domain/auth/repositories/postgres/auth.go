@@ -24,10 +24,38 @@ var (
 		FROM auth
 		WHERE email LIKE $1
 	`
+
+	queryFindById = `
+		SELECT id, email, COALESCE(img_url, '')
+		FROM auth
+		WHERE id=$1
+	`
 )
 
 type authRepo struct {
 	db *sql.DB
+}
+
+// FindById implements repositories.AuthRepo
+func (a *authRepo) FindById(ctx context.Context, authId int) (*models.Auth, error) {
+	stmt, err := a.db.Prepare(queryFindById)
+	if err != nil {
+		return nil, err
+	}
+
+	row := stmt.QueryRow(authId)
+
+	var auth = models.Auth{}
+	err = row.Scan(
+		&auth.Id,
+		&auth.Email,
+		&auth.ImgUrl,
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	return &auth, nil
 }
 
 // SearchAuthByEmail implements repositories.AuthRepo
