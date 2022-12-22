@@ -28,6 +28,9 @@ func NewRouterGin(port string, db *database.Database) *Gin {
 }
 
 func (r *Gin) BuildRoutes() {
+
+	r.router.Use(CORS)
+
 	v1 := r.router.Group("v1")
 
 	authRoute := auth.NewRouterAuth(v1, r.db)
@@ -37,6 +40,11 @@ func (r *Gin) BuildRoutes() {
 	v1.Use(r.middle.ValidateAuth)
 	friendRoute := follow.NewRouterFollow(v1, r.db)
 	friendRoute.RegisterFollowRoutes()
+}
+
+func CORS(ctx *gin.Context) {
+	ctx.Header("Access-Control-Allow-Origin", "*")
+	ctx.Next()
 }
 
 func (r *Gin) Run() {
