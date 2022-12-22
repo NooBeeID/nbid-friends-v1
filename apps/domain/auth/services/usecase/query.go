@@ -34,3 +34,25 @@ func (a *authSvc) Login(ctx context.Context, req *params.UserLoginRequest) (*par
 		Token: token,
 	}, nil
 }
+
+// Search implements services.AuthSvc
+func (a *authSvc) Search(ctx context.Context, email string) ([]*params.UserSearchResponse, *response.CustomError) {
+	auth, err := a.repo.SearchAuthByEmail(ctx, email)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, response.NotFoundError()
+		}
+
+		return nil, response.RepositoryErrorWithAdditionalInfo(err.Error())
+	}
+
+	var authResp []*params.UserSearchResponse
+	for _, search := range auth {
+		tempAuthResp := new(params.UserSearchResponse)
+		tempAuthResp.ParseModelToResponse(search)
+
+		authResp = append(authResp, tempAuthResp)
+	}
+
+	return authResp, nil
+}

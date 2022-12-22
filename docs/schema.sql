@@ -10,3 +10,6 @@ CREATE TABLE follows (
     followingId int,
     created_at timestamp
 );
+
+ALTER TABLE auth 
+ADD COLUMN img_url varchar;

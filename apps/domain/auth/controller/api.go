@@ -58,3 +58,23 @@ func (c *ControllerAPI) Login(ctx *gin.Context) {
 	ctx.JSON(resp.StatusCode, resp)
 
 }
+
+func (c *ControllerAPI) Search(ctx *gin.Context) {
+	var req = new(params.UserSearchRequest)
+
+	err := ctx.ShouldBindJSON(req)
+	if err != nil {
+		resp := response.GeneralError()
+		ctx.AbortWithStatusJSON(resp.StatusCode, resp)
+		return
+	}
+
+	result, custErr := c.svc.Search(ctx.Request.Context(), req.Email)
+	if custErr != nil {
+		ctx.AbortWithStatusJSON(custErr.StatusCode, custErr)
+		return
+	}
+
+	resp := response.GeneralSuccessCustomMessageAndPayload("SEARCH SUCCESS", result)
+	ctx.JSON(resp.StatusCode, resp)
+}

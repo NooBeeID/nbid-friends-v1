@@ -34,5 +34,6 @@ func (r *routeAuthImpl) RegisterAuthRoutes() {
 	{
 		auth.POST("/register", r.auth.Register)
 		auth.POST("/login", r.auth.Login)
+		auth.POST("/search", r.auth.Search)
 	}
 }

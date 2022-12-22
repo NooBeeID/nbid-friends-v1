@@ -9,8 +9,8 @@ import (
 
 var (
 	queryCreate = `
-		INSERT INTO auth (email, password)
-		VALUES ($1, $2)
+		INSERT INTO auth (email, password, img_url)
+		VALUES ($1, $2, $3)
 	`
 
 	queryFindByEmail = `
@@ -18,10 +18,51 @@ var (
 		FROM auth
 		WHERE email=$1
 	`
+
+	querySearchByEmail = `
+		SELECT id, email, COALESCE(img_url, '')
+		FROM auth
+		WHERE email LIKE $1
+	`
 )
 
 type authRepo struct {
 	db *sql.DB
+}
+
+// SearchAuthByEmail implements repositories.AuthRepo
+func (a *authRepo) SearchAuthByEmail(ctx context.Context, email string) ([]*models.Auth, error) {
+	stmt, err := a.db.Prepare(querySearchByEmail)
+	if err != nil {
+		return nil, err
+	}
+
+	rows, err := stmt.Query("%" + email + "%")
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+
+	var auth []*models.Auth
+
+	for rows.Next() {
+		tempAuth := new(models.Auth)
+		err := rows.Scan(
+			&tempAuth.Id,
+			&tempAuth.Email,
+			&tempAuth.ImgUrl,
+		)
+
+		if err != nil {
+			return nil, err
+		}
+
+		auth = append(auth, tempAuth)
+	}
+
+	return auth, nil
+
 }
 
 // Create implements repositories.AuthRepo
@@ -31,7 +72,7 @@ func (a *authRepo) Create(ctx context.Context, auth *models.Auth) error {
 		return err
 	}
 
-	_, err = stmt.Exec(auth.Email, auth.Password)
+	_, err = stmt.Exec(auth.Email, auth.Password, auth.ImgUrl)
 	if err != nil {
 		return err
 	}
