@@ -54,5 +54,9 @@ func (a *authSvc) Search(ctx context.Context, email string) ([]*params.UserSearc
 		authResp = append(authResp, tempAuthResp)
 	}
 
+	if authResp == nil {
+		authResp = []*params.UserSearchResponse{}
+	}
+
 	return authResp, nil
 }

@@ -24,7 +24,7 @@ var (
 	`
 
 	queryUnfollow = `
-		DELETE FROM follows
+		DELETE FROM follows as f
 		WHERE 
 			f.authId = $1
 		AND

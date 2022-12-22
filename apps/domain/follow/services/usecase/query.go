@@ -26,6 +26,10 @@ func (f *followSvc) GetMyFollowing(ctx context.Context, authId int) ([]*params.G
 		followingResponse = append(followingResponse, &followingResp)
 	}
 
+	if followingResponse == nil {
+		followingResponse = []*params.GetMyFollowingResponse{}
+	}
+
 	return followingResponse, nil
 
 }

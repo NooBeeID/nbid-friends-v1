@@ -65,3 +65,33 @@ func (c *ControllerAPI) GetMyFollowing(ctx *gin.Context) {
 	resp := response.GeneralSuccessCustomMessageAndPayload("GET ALL SUCCESS", myFollowing)
 	ctx.JSON(resp.StatusCode, resp)
 }
+
+func (c *ControllerAPI) UnfollFriend(ctx *gin.Context) {
+	req := new(params.UnfollRequest)
+
+	err := ctx.ShouldBindJSON(req)
+	if err != nil {
+		resp := response.GeneralErrorWithAdditionalInfo(err.Error())
+		ctx.AbortWithStatusJSON(resp.StatusCode, resp)
+		return
+	}
+
+	authId := ctx.GetInt("authId")
+
+	if authId == 0 {
+		resp := response.GeneralErrorWithAdditionalInfo("auth id cannot be 0")
+		ctx.AbortWithStatusJSON(resp.StatusCode, resp)
+		return
+	}
+
+	req.AuthId = authId
+
+	custErr := c.svc.UnfollowFriend(ctx, req)
+	if custErr != nil {
+		ctx.AbortWithStatusJSON(custErr.StatusCode, custErr)
+		return
+	}
+
+	resp := response.GeneralSuccessCustomMessageAndPayload("UNFOLLOW FRIEND SUCCESS", nil)
+	ctx.JSON(resp.StatusCode, resp)
+}

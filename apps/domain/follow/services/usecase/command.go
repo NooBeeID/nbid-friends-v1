@@ -19,3 +19,16 @@ func (f *followSvc) FollowFriend(ctx context.Context, req *params.FollowingReque
 
 	return nil
 }
+
+// UnfollowFriend implements services.FollowSvc
+func (f *followSvc) UnfollowFriend(ctx context.Context, req *params.UnfollRequest) *response.CustomError {
+	unfoll := req.ParseToModel()
+
+	err := f.repo.Delete(ctx, unfoll.AuthId, unfoll.FollowingId)
+	if err != nil {
+		return response.RepositoryErrorWithAdditionalInfo(err.Error())
+	}
+
+	return nil
+
+}

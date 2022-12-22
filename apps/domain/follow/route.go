@@ -25,8 +25,7 @@ func (r *routeFollowImpl) RegisterFollowRoutes() {
 	{
 		follow.POST("", r.follow.Follow)
 		follow.GET("", r.follow.GetMyFollowing)
-		// follow.PUT("/")
-		// follow.DELETE("/")
+		follow.DELETE("/", r.follow.UnfollFriend)
 	}
 }
 
