@@ -2,11 +2,12 @@ package main
 
 import (
 	"backend/apps"
+	"backend/config"
 	"backend/pkg/database"
 )
 
 func main() {
-
+	config.LoadConfig("./cmd/.env")
 	sqlDb, err := database.ConnectDB()
 	if err != nil {
 		panic(err)
