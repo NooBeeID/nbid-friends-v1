@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\" : \"admin2@gmail.com\",\n    \"password\" : \"admin\"\n}",
+							"raw": "{\n    \"email\" : \"admin2@gmail.com\",\n    \"password\" : \"admin\",\n    \"img_url\" : \"https://static.wikia.nocookie.net/upinipin/images/b/bf/1_1_upin.png/revision/latest?cb=20161210131806\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -44,7 +44,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"reyhan@gmail.com\",\n    \"password\" : \"admin\"\n}",
+									"raw": "{\n    \"email\" : \"admin2@gmail.com\",\n    \"password\" : \"admin\",\n    \"img_url\" : \"https://static.wikia.nocookie.net/upinipin/images/b/bf/1_1_upin.png/revision/latest?cb=20161210131806\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -69,12 +69,16 @@
 							"_postman_previewlanguage": "json",
 							"header": [
 								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
 									"key": "Content-Type",
 									"value": "application/json; charset=utf-8"
 								},
 								{
 									"key": "Date",
-									"value": "Wed, 21 Dec 2022 15:50:11 GMT"
+									"value": "Thu, 22 Dec 2022 16:13:27 GMT"
 								},
 								{
 									"key": "Content-Length",
@@ -83,6 +87,87 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"status_code\": 201,\n    \"message\": \"CREATED SUCCESS\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Search",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/v1/auth/search",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"auth",
+								"search"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Search",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/v1/auth/search",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"auth",
+										"search"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 16:41:04 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "257"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status_code\": 200,\n    \"message\": \"SEARCH SUCCESS\",\n    \"payload\": [\n        {\n            \"id\": 1,\n            \"email\": \"reyhan@gmail.com\",\n            \"img_url\": \"\"\n        },\n        {\n            \"id\": 5,\n            \"email\": \"admin2@gmail.com\",\n            \"img_url\": \"https://static.wikia.nocookie.net/upinipin/images/b/bf/1_1_upin.png/revision/latest?cb=20161210131806\"\n        }\n    ]\n}"
 						}
 					]
 				},
@@ -160,6 +245,81 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"status_code\": 200,\n    \"message\": \"LOGIN SUCCESS\",\n    \"payload\": {\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7IkF1dGhJZCI6MSwiRXhwaXJlZCI6IjIwMjItMTItMjFUMjM6MjY6MzEuMTE0OTMzKzA3OjAwIn19.toj22OVFDI86apWcXlq0-HquTnnM0f8P_kkIBESN5ok\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}:{{port}}/v1/auth/profile",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"auth",
+								"profile"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Profile",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host}}:{{port}}/v1/auth/profile",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"auth",
+										"profile"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 16:40:32 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "211"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status_code\": 200,\n    \"message\": \"GET PROFILE SUCCESS\",\n    \"payload\": {\n        \"id\": 5,\n        \"email\": \"admin2@gmail.com\",\n        \"img_url\": \"https://static.wikia.nocookie.net/upinipin/images/b/bf/1_1_upin.png/revision/latest?cb=20161210131806\"\n    }\n}"
 						}
 					]
 				}
@@ -321,6 +481,97 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"status_code\": 201,\n    \"message\": \"CREATED SUCCESS\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Unfollow",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"following_id\" : 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/v1/follow",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"follow"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Unfollow",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"following_id\" : 5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/v1/follow",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"v1",
+										"follow"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 16:25:57 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "55"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status_code\": 200,\n    \"message\": \"UNFOLLOW FRIEND SUCCESS\"\n}"
 						}
 					]
 				}
