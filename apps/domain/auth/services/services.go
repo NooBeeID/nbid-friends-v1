@@ -1,8 +1,8 @@
 package services
 
 import (
+	"backend/apps/commons/response"
 	"backend/apps/domain/auth/params"
-	"backend/helper/response"
 	"context"
 )
 

@@ -25,6 +25,11 @@ var (
 		StatusCode: http.StatusNotFound,
 		Message:    "NOT FOUND ERROR",
 	}
+	unauthorizedError = CustomError{
+		Code:       "ERR0004",
+		StatusCode: http.StatusUnauthorized,
+		Message:    "UNAUTHORIZED",
+	}
 )
 
 func GeneralError() *CustomError {
@@ -54,6 +59,16 @@ func NotFoundError() *CustomError {
 
 func NotFoundErrorWithAdditionalInfo(info interface{}) *CustomError {
 	err := repositoryError
+	err.AdditionalInfo = info
+	return &err
+}
+func UnauthorizedError() *CustomError {
+	err := unauthorizedError
+	return &err
+}
+
+func UnauthorizedErrorWithAdditionalInfo(info interface{}) *CustomError {
+	err := unauthorizedError
 	err.AdditionalInfo = info
 	return &err
 }

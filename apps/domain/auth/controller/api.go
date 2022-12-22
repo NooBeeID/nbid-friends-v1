@@ -1,9 +1,9 @@
 package controller
 
 import (
+	"backend/apps/commons/response"
 	"backend/apps/domain/auth/params"
 	"backend/apps/domain/auth/services"
-	"backend/helper/response"
 
 	"github.com/gin-gonic/gin"
 )

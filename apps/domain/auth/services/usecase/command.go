@@ -1,8 +1,8 @@
 package usecase
 
 import (
+	"backend/apps/commons/response"
 	"backend/apps/domain/auth/params"
-	"backend/helper/response"
 	"backend/pkg/encryption"
 	"context"
 )
