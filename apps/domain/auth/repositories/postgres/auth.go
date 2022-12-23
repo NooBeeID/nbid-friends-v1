@@ -20,12 +20,13 @@ var (
 	`
 
 	querySearchByEmail = `
-		SELECT DISTINCT(a.email), a.id,COALESCE(a.img_url, ''),f.followingId, f.authId FROM auth as a
+		SELECT a.email, a.id,COALESCE(a.img_url, ''),f.followingId, f.authId FROM auth as a
 		LEFT JOIN follows as f
 			ON a.id = f.followingId
 		WHERE (a.id <> $1
 		OR f.authId=$1)
 		AND a.email LIKE $2
+		ORDER BY a.id DESC
 	`
 
 	queryFindById = `
