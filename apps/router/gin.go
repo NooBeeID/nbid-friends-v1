@@ -44,6 +44,8 @@ func (r *Gin) BuildRoutes() {
 
 func CORS(ctx *gin.Context) {
 	ctx.Header("Access-Control-Allow-Origin", "*")
+	ctx.Header("Access-Control-Request-Methods", "GET, OPTIONS, POST, PUT, DELETE")
+	ctx.Header("Access-Control-Request-Headers", "Authorization, Content-Type")
 	ctx.Next()
 }
 
