@@ -69,7 +69,16 @@ func (c *ControllerAPI) Search(ctx *gin.Context) {
 		return
 	}
 
-	result, custErr := c.svc.Search(ctx.Request.Context(), req.Email)
+	authId := ctx.GetInt("authId")
+	if authId == 0 {
+		resp := response.GeneralErrorWithAdditionalInfo("auth id cannot be 0")
+		ctx.AbortWithStatusJSON(resp.StatusCode, resp)
+		return
+	}
+
+	req.AuthId = authId
+
+	result, custErr := c.svc.Search(ctx.Request.Context(), req.Email, req.AuthId)
 	if custErr != nil {
 		ctx.AbortWithStatusJSON(custErr.StatusCode, custErr)
 		return

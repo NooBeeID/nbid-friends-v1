@@ -7,12 +7,13 @@ type UserLoginResponse struct {
 }
 
 type UserSearchResponse struct {
-	Id     int    `json:"id"`
-	Email  string `json:"email"`
-	ImgUrl string `json:"img_url"`
+	Id       int    `json:"id"`
+	Email    string `json:"email"`
+	ImgUrl   string `json:"img_url"`
+	IsFollow bool   `json:"is_follow"`
 }
 
-func (u *UserSearchResponse) ParseModelToResponse(model *models.Auth) {
+func (u *UserSearchResponse) ParseModelToResponse(model *models.SearchAuth) {
 	u.Email = model.Email
 	u.Id = model.Id
 	u.ImgUrl = model.ImgUrl

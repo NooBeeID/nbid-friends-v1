@@ -37,9 +37,9 @@ func (r *routeAuthImpl) RegisterAuthRoutes() {
 	{
 		auth.POST("/register", r.auth.Register)
 		auth.POST("/login", r.auth.Login)
-		auth.POST("/search", r.auth.Search)
 
 		auth.Use(r.middle.ValidateAuth)
+		auth.POST("/search", r.auth.Search)
 		auth.GET("/profile", r.auth.Profile)
 	}
 }

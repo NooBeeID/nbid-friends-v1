@@ -22,5 +22,6 @@ type UserLoginRequest struct {
 }
 
 type UserSearchRequest struct {
-	Email string `json:"email"`
+	Email  string `json:"email"`
+	AuthId int
 }

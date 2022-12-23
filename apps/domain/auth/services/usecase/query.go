@@ -36,8 +36,8 @@ func (a *authSvc) Login(ctx context.Context, req *params.UserLoginRequest) (*par
 }
 
 // Search implements services.AuthSvc
-func (a *authSvc) Search(ctx context.Context, email string) ([]*params.UserSearchResponse, *response.CustomError) {
-	auth, err := a.repo.SearchAuthByEmail(ctx, email)
+func (a *authSvc) Search(ctx context.Context, email string, id int) ([]*params.UserSearchResponse, *response.CustomError) {
+	auth, err := a.repo.SearchAuthByEmail(ctx, email, id)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return nil, response.NotFoundError()
@@ -50,7 +50,12 @@ func (a *authSvc) Search(ctx context.Context, email string) ([]*params.UserSearc
 	for _, search := range auth {
 		tempAuthResp := new(params.UserSearchResponse)
 		tempAuthResp.ParseModelToResponse(search)
-
+		tempAuthResp.IsFollow = false
+		if search.AuthId != nil {
+			if *search.AuthId == id {
+				tempAuthResp.IsFollow = true
+			}
+		}
 		authResp = append(authResp, tempAuthResp)
 	}
 

@@ -20,9 +20,12 @@ var (
 	`
 
 	querySearchByEmail = `
-		SELECT id, email, COALESCE(img_url, '')
-		FROM auth
-		WHERE email LIKE $1
+		SELECT DISTINCT(a.email), a.id,COALESCE(a.img_url, ''),f.followingId, f.authId FROM auth as a
+		LEFT JOIN follows as f
+			ON a.id = f.followingId
+		WHERE (a.id <> $1
+		OR f.authId=$1)
+		AND a.email LIKE $2
 	`
 
 	queryFindById = `
@@ -59,27 +62,29 @@ func (a *authRepo) FindById(ctx context.Context, authId int) (*models.Auth, erro
 }
 
 // SearchAuthByEmail implements repositories.AuthRepo
-func (a *authRepo) SearchAuthByEmail(ctx context.Context, email string) ([]*models.Auth, error) {
+func (a *authRepo) SearchAuthByEmail(ctx context.Context, email string, id int) ([]*models.SearchAuth, error) {
 	stmt, err := a.db.Prepare(querySearchByEmail)
 	if err != nil {
 		return nil, err
 	}
 
-	rows, err := stmt.Query("%" + email + "%")
+	rows, err := stmt.Query(id, "%"+email+"%")
 	if err != nil {
 		return nil, err
 	}
 
 	defer rows.Close()
 
-	var auth []*models.Auth
+	var auth []*models.SearchAuth
 
 	for rows.Next() {
-		tempAuth := new(models.Auth)
+		tempAuth := new(models.SearchAuth)
 		err := rows.Scan(
-			&tempAuth.Id,
 			&tempAuth.Email,
+			&tempAuth.Id,
 			&tempAuth.ImgUrl,
+			&tempAuth.FollowingId,
+			&tempAuth.AuthId,
 		)
 
 		if err != nil {
