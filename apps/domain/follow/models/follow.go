@@ -10,6 +10,7 @@ type Follow struct {
 }
 
 type FollowWithAuth struct {
-	Id    int
-	Email string
+	Id     int
+	Email  string
+	ImgUrl string
 }

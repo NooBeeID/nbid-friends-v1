@@ -15,7 +15,7 @@ var (
 	`
 
 	queryGetAllByAuthId = `
-		SELECT a.email, a.id
+		SELECT a.email, a.id, a.img_url
 		FROM follows as f
 		JOIN auth as a
 			ON a.id = f.followingId
@@ -79,6 +79,7 @@ func (f *followRepo) GetAll(ctx context.Context, authId int) ([]*models.FollowWi
 		err := rows.Scan(
 			&tempFollowAuth.Email,
 			&tempFollowAuth.Id,
+			&tempFollowAuth.ImgUrl,
 		)
 		if err != nil {
 			return nil, err
