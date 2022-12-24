@@ -19,7 +19,7 @@ func main() {
 
 	port := os.Getenv("PORT")
 	factory := apps.NewRouterFactory(db)
-	router, err := factory.Create(apps.ROUTER_Gin, port)
+	router, err := factory.Create(apps.ROUTER_Gin, ":"+port)
 	if err != nil {
 		panic(err)
 	}
