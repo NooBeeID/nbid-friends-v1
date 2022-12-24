@@ -4,6 +4,7 @@ import (
 	"backend/apps"
 	"backend/config"
 	"backend/pkg/database"
+	"os"
 )
 
 func main() {
@@ -16,7 +17,7 @@ func main() {
 	db := database.NewDatabase()
 	db = db.SetSql(sqlDb)
 
-	port := ":4444"
+	port := os.Getenv("APP_PORT")
 	factory := apps.NewRouterFactory(db)
 	router, err := factory.Create(apps.ROUTER_Gin, port)
 	if err != nil {
