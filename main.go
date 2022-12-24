@@ -17,7 +17,7 @@ func main() {
 	db := database.NewDatabase()
 	db = db.SetSql(sqlDb)
 
-	port := os.Getenv("APP_PORT")
+	port := os.Getenv("PORT")
 	factory := apps.NewRouterFactory(db)
 	router, err := factory.Create(apps.ROUTER_Gin, port)
 	if err != nil {
