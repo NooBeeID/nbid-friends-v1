@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\" : \"admin2@gmail.com\",\n    \"password\" : \"admin\",\n    \"img_url\" : \"https://static.wikia.nocookie.net/upinipin/images/b/bf/1_1_upin.png/revision/latest?cb=20161210131806\"\n}",
+							"raw": "{\n    \"email\" : \"admin4@gmail.com\",\n    \"password\" : \"admin\",\n    \"img_url\" : \"https://static.wikia.nocookie.net/upinipin/images/b/bf/1_1_upin.png/revision/latest?cb=20161210131806\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -94,7 +94,13 @@
 					"name": "Search",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"email\" : \"\"\n}",
@@ -122,7 +128,13 @@
 							"name": "Search",
 							"originalRequest": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
 									"raw": "{\n    \"email\" : \"\"\n}",
@@ -154,20 +166,28 @@
 									"value": "*"
 								},
 								{
+									"key": "Access-Control-Request-Headers",
+									"value": "Authorization, Content-Type"
+								},
+								{
+									"key": "Access-Control-Request-Methods",
+									"value": "GET, OPTIONS, POST, PUT, DELETE"
+								},
+								{
 									"key": "Content-Type",
 									"value": "application/json; charset=utf-8"
 								},
 								{
 									"key": "Date",
-									"value": "Thu, 22 Dec 2022 16:41:04 GMT"
+									"value": "Sat, 24 Dec 2022 05:45:30 GMT"
 								},
 								{
 									"key": "Content-Length",
-									"value": "257"
+									"value": "728"
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"status_code\": 200,\n    \"message\": \"SEARCH SUCCESS\",\n    \"payload\": [\n        {\n            \"id\": 1,\n            \"email\": \"reyhan@gmail.com\",\n            \"img_url\": \"\"\n        },\n        {\n            \"id\": 5,\n            \"email\": \"admin2@gmail.com\",\n            \"img_url\": \"https://static.wikia.nocookie.net/upinipin/images/b/bf/1_1_upin.png/revision/latest?cb=20161210131806\"\n        }\n    ]\n}"
+							"body": "{\n    \"status_code\": 200,\n    \"message\": \"SEARCH SUCCESS\",\n    \"payload\": [\n        {\n            \"id\": 3,\n            \"email\": \"admin3@gmail.com\",\n            \"img_url\": \"https://static.wikia.nocookie.net/upinipin/images/b/bf/1_1_upin.png/revision/latest?cb=20161210131806\",\n            \"is_follow\": false\n        },\n        {\n            \"id\": 2,\n            \"email\": \"admin@gmail.com\",\n            \"img_url\": \"https://static.wikia.nocookie.net/upinipin/images/b/bf/1_1_upin.png/revision/latest?cb=20161210131806\",\n            \"is_follow\": false\n        },\n        {\n            \"id\": 2,\n            \"email\": \"admin@gmail.com\",\n            \"img_url\": \"https://static.wikia.nocookie.net/upinipin/images/b/bf/1_1_upin.png/revision/latest?cb=20161210131806\",\n            \"is_follow\": false\n        },\n        {\n            \"id\": 1,\n            \"email\": \"admin2@gmail.com\",\n            \"img_url\": \"https://static.wikia.nocookie.net/upinipin/images/b/bf/1_1_upin.png/revision/latest?cb=20161210131806\",\n            \"is_follow\": false\n        }\n    ]\n}"
 						}
 					]
 				},
@@ -178,7 +198,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\" : \"reyhan@gmail.com\",\n    \"password\" : \"admin\"\n}",
+							"raw": "{\n    \"email\" : \"admin4@gmail.com\",\n    \"password\" : \"admin\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -186,13 +206,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}:{{port}}/v1/auth/login",
+							"raw": "{{host}}:{{port}}/v2/auth/login",
 							"host": [
 								"{{host}}"
 							],
 							"port": "{{port}}",
 							"path": [
-								"v1",
+								"v2",
 								"auth",
 								"login"
 							]
@@ -410,7 +430,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"following_id\" : 5\n}",
+							"raw": "{\n    \"following_id\" : 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -487,7 +507,7 @@
 				{
 					"name": "Unfollow",
 					"request": {
-						"method": "DELETE",
+						"method": "POST",
 						"header": [
 							{
 								"key": "Authorization",
@@ -505,14 +525,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}:{{port}}/v1/follow",
+							"raw": "{{host}}:{{port}}/v1/unfoll",
 							"host": [
 								"{{host}}"
 							],
 							"port": "{{port}}",
 							"path": [
 								"v1",
-								"follow"
+								"unfoll"
 							]
 						}
 					},
