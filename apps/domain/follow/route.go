@@ -25,7 +25,12 @@ func (r *routeFollowImpl) RegisterFollowRoutes() {
 	{
 		follow.POST("", r.follow.Follow)
 		follow.GET("", r.follow.GetMyFollowing)
-		follow.POST("/", r.follow.UnfollFriend)
+	}
+
+	unfoll := r.router.Group("unfoll")
+	{
+		unfoll.POST("", r.follow.UnfollFriend)
+
 	}
 }
 
